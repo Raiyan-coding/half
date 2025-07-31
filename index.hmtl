@@ -1,68 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Radar Chart - Subject Strength</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f0f8ff;
-      padding: 40px;
-      text-align: center;
-    }
-    canvas {
-      max-width: 800px;
-      margin: auto;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
     }
     h2 {
-      margin-bottom: 20px;
-      color: #333;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+    .chart-container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      padding: 30px;
+      max-width: 800px;
+      width: 90%;
+    }
+    canvas {
+      max-width: 100%;
     }
   </style>
 </head>
 <body>
-  <h2>Subject-wise Strength Comparison (Radar Chart)</h2>
-  <canvas id="radarChart"></canvas>
+  <h2>📊 Subject Strength Comparison - Medha, Raiyan & Sourav</h2>
+  <div class="chart-container">
+    <canvas id="radarChart"></canvas>
+  </div>
 
   <script>
-    const subjects = [
-      "B1", "B2", "E1", "E2", "Math",
-      "HMath", "Physics", "Chemistry", "Biology", "BGS", "ICT"
-    ];
+    const subjects = ['B1', 'B2', 'E1', 'E2', 'Math', 'HMath', 'Physics', 'Chemistry', 'Biology', 'BGS', 'ICT (Scaled)'];
 
-    const medha = [88, 80, 82, 88, 83, 71, 75, 80, 88, 96, 49 * 2]; // ICT scaled
-    const raiyan = [80, 83, 86, 92, 89, 96, 90, 84, 96, 99, 49 * 2];
-    const sourav = [76, 78, 70, 88, 91, 92, 93, 82, 95, 97, 47 * 2];
+    const medhaMarks = [88, 80, 82, 88, 83, 71, 75, 80, 88, 96, 49 * 2];
+    const raiyanMarks = [80, 83, 86, 92, 89, 96, 90, 84, 96, 99, 49 * 2];
+    const souravMarks = [76, 78, 70, 88, 91, 92, 93, 82, 95, 97, 49 * 2];
 
     const data = {
       labels: subjects,
       datasets: [
         {
-          label: "Medha",
-          data: medha,
-          fill: true,
-          backgroundColor: "rgba(255, 99, 132, 0.2)",
-          borderColor: "rgba(255, 99, 132, 1)",
-          pointBackgroundColor: "rgba(255, 99, 132, 1)",
+          label: 'Medha',
+          data: medhaMarks,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(255, 99, 132, 1)'
         },
         {
-          label: "Raiyan",
-          data: raiyan,
-          fill: true,
-          backgroundColor: "rgba(54, 162, 235, 0.2)",
-          borderColor: "rgba(54, 162, 235, 1)",
-          pointBackgroundColor: "rgba(54, 162, 235, 1)",
+          label: 'Raiyan',
+          data: raiyanMarks,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(54, 162, 235, 1)'
         },
         {
-          label: "Sourav",
-          data: sourav,
-          fill: true,
-          backgroundColor: "rgba(255, 206, 86, 0.2)",
-          borderColor: "rgba(255, 206, 86, 1)",
-          pointBackgroundColor: "rgba(255, 206, 86, 1)",
-        },
+          label: 'Sourav',
+          data: souravMarks,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(75, 192, 192, 1)'
+        }
       ]
     };
 
@@ -71,25 +83,39 @@
       data: data,
       options: {
         responsive: true,
-        scales: {
-          r: {
-            beginAtZero: true,
-            max: 100
-          }
-        },
         plugins: {
           legend: {
-            position: 'top'
+            labels: {
+              color: 'white',
+              font: {
+                size: 14
+              }
+            }
           },
           title: {
-            display: true,
-            text: 'Radar View of Student Subject Strengths'
+            display: false
+          }
+        },
+        scales: {
+          r: {
+            angleLines: { color: '#ccc' },
+            grid: { color: '#aaa' },
+            pointLabels: {
+              color: 'white',
+              font: {
+                size: 13
+              }
+            },
+            ticks: {
+              color: 'white',
+              backdropColor: 'transparent'
+            }
           }
         }
-      },
+      }
     };
 
-    new Chart(document.getElementById("radarChart"), config);
+    new Chart(document.getElementById('radarChart'), config);
   </script>
 </body>
 </html>
