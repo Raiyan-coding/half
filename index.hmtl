@@ -7,93 +7,89 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      background: #0f172a;
-      color: white;
       font-family: 'Segoe UI', sans-serif;
+      background: #f0f8ff;
+      padding: 40px;
       text-align: center;
-      padding: 2rem;
     }
     canvas {
-      background: #1e293b;
-      border-radius: 1rem;
-      box-shadow: 0 0 20px #0ea5e9;
-      padding: 1rem;
+      max-width: 800px;
+      margin: auto;
     }
-    h1 {
-      color: #0ea5e9;
+    h2 {
       margin-bottom: 20px;
+      color: #333;
     }
   </style>
 </head>
 <body>
-  <h1>Radar Chart: Subject-wise Strength</h1>
-  <canvas id="radarChart" width="600" height="600"></canvas>
+  <h2>Subject-wise Strength Comparison (Radar Chart)</h2>
+  <canvas id="radarChart"></canvas>
 
   <script>
-    const subjects = ["Math", "B1", "B2", "REL", "Eng1", "Eng2", "ICT", "BGS", "Phy", "HM", "Che", "Bio"];
+    const subjects = [
+      "B1", "B2", "E1", "E2", "Math",
+      "HMath", "Physics", "Chemistry", "Biology", "BGS", "ICT"
+    ];
 
-    const marks = {
-      Medha: [83, 88, 80, 87, 82, 88, 49, 96, 75, 71, 80, 88],
-      Raiyan: [89, 80, 83, 92, 86, 92, 49, 99, 90, 96, 84, 96],
-      Sourav: [91, 76, 78, 85, 70, 88, 47, 97, 93, 92, 82, 95]
+    const medha = [88, 80, 82, 88, 83, 71, 75, 80, 88, 96, 49 * 2]; // ICT scaled
+    const raiyan = [80, 83, 86, 92, 89, 96, 90, 84, 96, 99, 49 * 2];
+    const sourav = [76, 78, 70, 88, 91, 92, 93, 82, 95, 97, 47 * 2];
+
+    const data = {
+      labels: subjects,
+      datasets: [
+        {
+          label: "Medha",
+          data: medha,
+          fill: true,
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          borderColor: "rgba(255, 99, 132, 1)",
+          pointBackgroundColor: "rgba(255, 99, 132, 1)",
+        },
+        {
+          label: "Raiyan",
+          data: raiyan,
+          fill: true,
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgba(54, 162, 235, 1)",
+          pointBackgroundColor: "rgba(54, 162, 235, 1)",
+        },
+        {
+          label: "Sourav",
+          data: sourav,
+          fill: true,
+          backgroundColor: "rgba(255, 206, 86, 0.2)",
+          borderColor: "rgba(255, 206, 86, 1)",
+          pointBackgroundColor: "rgba(255, 206, 86, 1)",
+        },
+      ]
     };
 
-    const ctx = document.getElementById('radarChart').getContext('2d');
-    new Chart(ctx, {
+    const config = {
       type: 'radar',
-      data: {
-        labels: subjects,
-        datasets: [
-          {
-            label: 'Medha',
-            data: marks.Medha,
-            backgroundColor: 'rgba(249, 115, 22, 0.2)',
-            borderColor: '#f97316',
-            pointBackgroundColor: '#f97316'
-          },
-          {
-            label: 'Raiyan',
-            data: marks.Raiyan,
-            backgroundColor: 'rgba(14, 165, 233, 0.2)',
-            borderColor: '#0ea5e9',
-            pointBackgroundColor: '#0ea5e9'
-          },
-          {
-            label: 'Sourav',
-            data: marks.Sourav,
-            backgroundColor: 'rgba(16, 185, 129, 0.2)',
-            borderColor: '#10b981',
-            pointBackgroundColor: '#10b981'
-          }
-        ]
-      },
+      data: data,
       options: {
         responsive: true,
         scales: {
           r: {
-            angleLines: { color: '#334155' },
-            grid: { color: '#334155' },
-            pointLabels: {
-              color: 'white',
-              font: { weight: 'bold' }
-            },
-            ticks: {
-              color: 'white',
-              beginAtZero: true,
-              stepSize: 10
-            }
+            beginAtZero: true,
+            max: 100
           }
         },
         plugins: {
           legend: {
-            labels: {
-              color: 'white',
-              font: { size: 14, weight: 'bold' }
-            }
+            position: 'top'
+          },
+          title: {
+            display: true,
+            text: 'Radar View of Student Subject Strengths'
           }
         }
-      }
-    });
+      },
+    };
+
+    new Chart(document.getElementById("radarChart"), config);
   </script>
 </body>
 </html>
