@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Radar Chart - Subject Strength</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    canvas {
+      background: #1e293b;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px #0ea5e9;
+      padding: 1rem;
+    }
+    h1 {
+      color: #0ea5e9;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Radar Chart: Subject-wise Strength</h1>
+  <canvas id="radarChart" width="600" height="600"></canvas>
+
+  <script>
+    const subjects = ["Math", "B1", "B2", "REL", "Eng1", "Eng2", "ICT", "BGS", "Phy", "HM", "Che", "Bio"];
+
+    const marks = {
+      Medha: [83, 88, 80, 87, 82, 88, 49, 96, 75, 71, 80, 88],
+      Raiyan: [89, 80, 83, 92, 86, 92, 49, 99, 90, 96, 84, 96],
+      Sourav: [91, 76, 78, 85, 70, 88, 47, 97, 93, 92, 82, 95]
+    };
+
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: subjects,
+        datasets: [
+          {
+            label: 'Medha',
+            data: marks.Medha,
+            backgroundColor: 'rgba(249, 115, 22, 0.2)',
+            borderColor: '#f97316',
+            pointBackgroundColor: '#f97316'
+          },
+          {
+            label: 'Raiyan',
+            data: marks.Raiyan,
+            backgroundColor: 'rgba(14, 165, 233, 0.2)',
+            borderColor: '#0ea5e9',
+            pointBackgroundColor: '#0ea5e9'
+          },
+          {
+            label: 'Sourav',
+            data: marks.Sourav,
+            backgroundColor: 'rgba(16, 185, 129, 0.2)',
+            borderColor: '#10b981',
+            pointBackgroundColor: '#10b981'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            angleLines: { color: '#334155' },
+            grid: { color: '#334155' },
+            pointLabels: {
+              color: 'white',
+              font: { weight: 'bold' }
+            },
+            ticks: {
+              color: 'white',
+              beginAtZero: true,
+              stepSize: 10
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white',
+              font: { size: 14, weight: 'bold' }
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
